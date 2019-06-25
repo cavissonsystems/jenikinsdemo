@@ -1,0 +1,5 @@
+# informational; use java -jar sezpoz.jar to see authoritative contents
+jenkins.pipeline.NetDiagnosticsResultsPublisher#DESCRIPTOR
+jenkins.pipeline.NetStormBuilder$Descriptor
+jenkins.pipeline.NetStormResultsPublisher#DESCRIPTOR
+jenkins.pipeline.NetstormTestParameterDefinition$DescriptorImpl

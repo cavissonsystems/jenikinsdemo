@@ -1,0 +1,20 @@
+Manifest-Version: 1.0
+Built-By: prateek.jain
+Created-By: Apache Maven
+Build-Jdk: 1.8.0_111
+Extension-Name: cavisson
+Specification-Title: The Jenkins Plugins Parent POM Project
+Implementation-Title: cavisson
+Implementation-Version: 3.0.2-SNAPSHOT
+Group-Id: org.jenkins-ci.plugins
+Short-Name: cavisson
+Long-Name: Jenkins Check With Changes
+Plugin-Version: 3.0.2-SNAPSHOT (private-03/08/2018 15:21-prateek.jain)
+Hudson-Version: 2.54
+Jenkins-Version: 2.54
+Mask-Classes: org.objectweb.asm.
+PluginFirstClassLoader: true
+Plugin-Dependencies: dashboard-view:2.9.11;resolution:=optional,struct
+ s:1.10
+Plugin-Developers: 
+

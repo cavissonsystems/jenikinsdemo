@@ -1,0 +1,7 @@
+Running tests for org.jenkins-ci.plugins:cavisson:3.0.2-SNAPSHOT
+Mar 08, 2018 3:21:51 PM org.eclipse.jetty.util.log.Log initialized
+INFO: Logging initialized @861ms to org.eclipse.jetty.util.log.Slf4jLog
+Running tests for org.jenkins-ci.plugins:cavisson:3.0.2-SNAPSHOT
+Running tests for org.jenkins-ci.plugins:cavisson:3.0.2-SNAPSHOT
+Running tests for org.jenkins-ci.plugins:cavisson:3.0.2-SNAPSHOT
+Running tests for org.jenkins-ci.plugins:cavisson:3.0.2-SNAPSHOT

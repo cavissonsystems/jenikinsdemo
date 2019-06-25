@@ -1,0 +1,37 @@
+Manifest-Version: 1.0
+Group-Id: org.jenkins-ci.plugins
+Short-Name: cavisson
+Long-Name: Jenkins Check With Changes
+Plugin-Version: 3.0.2-SNAPSHOT (private-03/08/2018 15:21-prateek.jain)
+Hudson-Version: 2.54
+Jenkins-Version: 2.54
+Mask-Classes: org.objectweb.asm.
+PluginFirstClassLoader: true
+Plugin-Dependencies: dashboard-view:2.9.11;resolution:=optional,struct
+ s:1.10
+Plugin-Developers: 
+Libraries: C:\Users\prateek.jain\Desktop\oldJenkinsProjectFromServer\c
+ heckWithBackup\28-02-2018 bkup\src\main\resources,C:\Users\prateek.ja
+ in\Desktop\oldJenkinsProjectFromServer\checkWithBackup\28-02-2018 bku
+ p\target\classes,C:\Users\prateek.jain\.m2\repository\javax\enterpris
+ e\cdi-api\1.0\cdi-api-1.0.jar,C:\Users\prateek.jain\.m2\repository\or
+ g\apache\commons\commons-lang3\3.5\commons-lang3-3.5.jar,C:\Users\pra
+ teek.jain\.m2\repository\org\apache\httpcomponents\httpcore\4.4.8\htt
+ pcore-4.4.8.jar,C:\Users\prateek.jain\.m2\repository\org\codehaus\ple
+ xus\plexus-classworlds\2.5.2\plexus-classworlds-2.5.2.jar,C:\Users\pr
+ ateek.jain\.m2\repository\org\codehaus\plexus\plexus-component-annota
+ tions\1.7.1\plexus-component-annotations-1.7.1.jar,C:\Users\prateek.j
+ ain\.m2\repository\org\codehaus\plexus\plexus-utils\3.1.0\plexus-util
+ s-3.1.0.jar,C:\Users\prateek.jain\.m2\repository\org\eclipse\sisu\org
+ .eclipse.sisu.inject\0.3.3\org.eclipse.sisu.inject-0.3.3.jar,C:\Users
+ \prateek.jain\.m2\repository\org\eclipse\sisu\org.eclipse.sisu.plexus
+ \0.3.3\org.eclipse.sisu.plexus-0.3.3.jar,C:\Users\prateek.jain\.m2\re
+ pository\org\kohsuke\asm6\6.0_BETA\asm6-6.0_BETA.jar,C:\Users\prateek
+ .jain\.m2\repository\org\ow2\asm\asm-commons\6.0\asm-commons-6.0.jar,
+ C:\Users\prateek.jain\.m2\repository\org\ow2\asm\asm-tree\6.0\asm-tre
+ e-6.0.jar,C:\Users\prateek.jain\.m2\repository\org\ow2\asm\asm\6.0\as
+ m-6.0.jar,C:\Users\prateek.jain\.m2\repository\xml-apis\xml-apis\1.4.
+ 01\xml-apis-1.4.01.jar
+Resource-Path: C:\Users\prateek.jain\Desktop\oldJenkinsProjectFromServ
+ er\checkWithBackup\28-02-2018 bkup\src\main\webapp
+

@@ -1,0 +1,350 @@
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler"
+         xmlns:l="/lib/layout">
+  <l:layout title="overview-layout" xmlns:jm="/org/jenkinsci/plugins/netstorm/tags"
+            css="${rootURL}/plugin/netstorm/css/style.css">
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css' />
+    <link rel="stylesheet" type="text/css" href="${rootURL}/plugin/netstorm/css/report.css" />
+
+    <st:include it="${it.build}" page="sidepanel.jelly"/>
+    <script src ="${rootURL}/plugin/netstorm/js/jenkins_utils.js"/>
+    <script src ="${rootURL}/plugin/netstorm/js/sortableTable.js"/>
+    <l:main-panel>
+      <j:set var="report" value="${it.getNetStormReport()}"/>
+      <j:set var="testReport" value="${report.getTestReport()}"/>
+      <h2>${report.getName()}</h2>
+
+      <j:if test='${testReport != null}' > 
+         <table width = "100%" border="0" cellspacing="0" cellpadding="0">
+            <tr style="background: #f3f7cc;border-width: 1px;border-style: solid;border-color: #999999;" > 
+               <td  width ="100%">
+                  <table  width = "100%"  border="1" bgcolor="#F0F0F0" cellspacing="0" cellpadding="0">
+                     <tr style="background: #f3f7cc;border-width: 1px;border-style: solid;border-color: #999999;" > 
+                     <th colspan='4' style = "background:#F0F0F0;border-width: 1px;padding: 8px;border-style: solid;font-size:12px;font-weight:bold;border-color: #999999;" >Test Suite Report</th>
+                     </tr>
+                     <tr>
+                       <td class='td' style="background: #f3f7cc;">
+                        <div style='width: 100%;'> 
+                       
+                        <j:if test='${testReport.getOverAllStatus().equals("FAIL")}' > 
+                        <div class='col-lg-12 panel_width'>
+                        <div class='panel panel-orange panel-widget'>
+                        <div class='row no-padding'>
+                        <div class='col-lg-12 widget-left'>
+                        <i class='fa fa-3x fa-times-circle' style='color:red;' aria-hidden='true'></i></div>
+                        <div class='col-lg-12 widget-right'>
+                        <div class='large'>Overall Status</div>
+                        <div class='text-muted'><b style='color:red'>${testReport.getOverAllStatus()}</b></div>
+                        </div></div></div></div>
+                        </j:if>
+                         
+                        <j:if test='${testReport.getOverAllStatus().equals("PASS")}' >
+                        <div class='col-lg-12 panel_width'>
+                        <div class='panel panel-orange panel-widget'>
+                        <div class='row no-padding'>
+                        <div class='col-lg-12 widget-left'>
+                        <i class='fa fa-3x fa-check-circle' aria-hidden='true' style='color:#0ed016'></i></div>
+                        <div class='col-lg-12 widget-right'>
+                        <div class='large'>Overall Status</div>
+                        <div class='text-muted'><b style='color:#0ed016'>${testReport.getOverAllStatus()}</b></div>
+                        </div></div></div></div>
+                        </j:if>
+
+                        <div class='col-lg-12 panel_width'>
+                        <div class='panel panel-blue panel-widget'>
+                        <div class='row no-padding'>
+                        <div class='col-lg-12 widget-left'>
+                        <i class='fa fa-3x fa-stack-exchange' aria-hidden='true'></i></div>
+                        <div class='col-lg-12 widget-right'>
+                        <div class='large'>Overall Fail Criteria</div>
+                        <div class='text-muted'>${testReport.overAllFailCriteria}</div>
+                        </div></div></div></div>
+
+                        <div class='col-lg-12 panel_width'>
+                        <div class='panel panel-teal panel-widget'>
+                        <div class='row no-padding'>
+                        <div class='col-lg-12 widget-left'> 
+                        <i class='fa fa-3x fa-calendar' aria-hidden='true'></i></div>
+                        <div class='col-lg-12 widget-right'>
+                        <div class='large'>Execution End  Date/Time</div>
+                        <div class='text-muted2'>${testReport.date}</div>
+                        </div></div></div></div>
+
+                        <div class='col-lg-12 panel_width'>
+                        <div class='panel panel-red panel-widget'>
+                        <div class='row no-padding'>
+                        <div class='col-lg-12 widget-left'>
+                        <i class='fa fa-3x fa-external-link' aria-hidden='true'></i></div>
+                        <div class='col-lg-12 widget-right'>
+                        <div class='large'>${testReport.getIpPortLabel()}</div>
+                        <div class='text-muted'>${testReport.getServerName()}</div>
+                        </div></div></div></div>
+                        </div></td>
+                        </tr>
+
+                        <tr>
+                        <td class='td' style="background: #f3f7cc;">
+                        <div class='col-lg-12 legend_pad'><div class='legend A'>A. Upto ${testReport.normalThreshold}% variation</div>
+                        <div class='legend B'>B. ${testReport.normalThreshold+1}% - ${testReport.criticalThreshold}% variation</div></div>
+                        <div class='col-lg-12 legend_pad'><div class='legend C'>C. Greater than ${testReport.criticalThreshold}% variation</div>
+                        <div class='legend D'>D. Unexecuted Transactions</div></div>
+                        </td>
+                      </tr>
+
+<tr>
+                       <td class='td' style="background: #f3f7cc;">
+                          <div class="col-lg-4" style="color:white;background:#1e4361;margin-left:10px; border-width: 1px;padding: 6.5px;border-style: solid;border-color: #999999;">Transaction Success </div>
+                          <div  style='margin-right:10px;width:250px;' class='legend A col-lg-4' >A. Equal to 100% transaction success</div>
+                          <div style='margin-right:10px;width:250px;'  class='legend B col-lg-4'>B. 50%-99% transaction success</div>
+                          <div style='margin-right:10px;width:250px;' class='legend C col-lg-4'>C. Less than 50% transaction success</div>
+                        </td>
+
+                      </tr>
+
+                   </table>
+                 </td> 
+              </tr>
+            </table>
+          <br />
+           <j:if test='${!testReport.showHideTransaction}'>
+          <table class="table1" border='1' width="100%" bgcolor="#F0F0F0" cellspacing="0" cellpadding="5">
+            <tr style="height:15px;">
+             <th id='title' class='th' style='background:#1e4361; border-width: 1px;padding: 4px;border-style: solid;border-color: #999999;' > Transaction Status </th>
+             <th class='th' style=' background:  #72abd8;'><i class='fa fa-check-circle' aria-hidden='true' style='color:white'></i>Completed</th>
+             <th class='th' style=' background:  #72abd8;'><i class='fa fa-check-circle' aria-hidden='true' style='color:white'></i>Success</th>
+             <th class='th' style=' background:  #72abd8;'> <i class='fa fa-yelp' aria-hidden='true' style='color:white'></i>4xx</th>
+             <th class='th' style=' background:  #72abd8;'> <i class='fa fa-yelp' aria-hidden='true' style='color:white'></i>5xx</th>
+             <th class='th' style=' background:  #72abd8;'><i class='fa fa-cloud-download' aria-hidden='true' style='color:white'></i>ConFail</th>
+             <th class='th' style=' background:  #72abd8;'><i class='fa fa-cloud-download' aria-hidden='true' style='color:white'></i>CVFail</th>
+             <th class='th' style=' background:  #72abd8;'><i class='fa fa-safari' aria-hidden='true' style='color:white'></i> TimeOut</th>
+             <j:forEach var="transStats" items="${testReport.transStatsList}">
+             <j:if test='${!transStats.warVersion.equals("NA")}'>
+              
+               <th class='th' style=' background:  #72abd8;'><i class='fa fa-server' aria-hidden='true' style='color:white'></i> War Version </th>
+             <j:break/>
+             </j:if>
+             </j:forEach>
+             <j:forEach var="transStats" items="${testReport.transStatsList}">
+             <j:if test='${!transStats.releaseVersion.equals("NA")}'>
+              <th class='th' style=' background:  #72abd8;'><i class='fa fa-safari' aria-hidden='true' style='color:white'></i> Release Version</th>
+             <j:break/>
+             </j:if>
+             </j:forEach>
+
+         </tr>
+         <j:if test='${testReport.complete != null}'>
+         <tr style='color:#474747'>
+         <th class='th' id='title' style='background:#1e4361'> Current (${testReport.testRun}) </th>
+         <td class='td' style='background:#72abd8;'> <b style='float: right' >${testReport.getComplete()}</b></td>
+         <td class='td' style='background:#72abd8;'> <b style='float: right' >${testReport.getSuccess()}</b></td>
+         <td class='td' style='background:#72abd8;'> <b style='float: right' >${testReport.getT4xx()}</b></td>
+         <td class='td' style='background:#72abd8;'> <b style='float: right' >${testReport.getT5xx()}</b></td>
+         <td class='td' style='background:#72abd8;'> <b style='float: right' >${testReport.getConFail()}</b></td>
+         <td class='td' style='background:#72abd8;'> <b style='float: right' >${testReport.getCvFail()}</b></td>
+         <td class='td' style='background:#72abd8;'> <b style='float: right' >${testReport.getTotalTimeOut()}</b></td>
+         <j:if test='${!testReport.warVersion.equals("NA")}'>
+           <td class='td' style='background:#72abd8;'> <b style='float: right' >${testReport.getWarVersion()}</b></td>
+         </j:if>
+         <j:if test='${!testReport.releaseVersion.equals("NA")}'>
+           <td class='td' style='background:#72abd8;'> <b style='float: right' >${testReport.getReleaseVersion()}</b></td>
+         </j:if>
+         </tr>
+         </j:if>
+         <j:forEach var="transStats" items="${testReport.transStatsList}">
+         <tr style='color:#474747'>
+         <j:if test='${transStats.transTestRun.equals("TOT")}'>
+         <th class='th' id='title' style='background:#1e4361'> Current (${testReport.testRun}) </th>
+         </j:if>
+         <j:if test='${transStats.transTestRun.equals("CTOT")}'>
+         <th class='th' id='title' style='background:#1e4361'> Current (${testReport.testRun}) </th>
+         </j:if>
+         <j:if test='${transStats.transTestRun.equals("BASETOT")}'>
+         <th class='th' id='title' style='background:#1e4361'> Baseline (${testReport.baseLineTestRun}) </th>
+         </j:if>
+         <td class='td' style='background:#72abd8;'> <b style='float: right' >${transStats.getComplete()}</b></td>
+         <td class='td' style='background:#72abd8;'> <b style='float: right' >${transStats.getSuccess()}</b></td>
+         <td class='td' style='background:#72abd8;'> <b style='float: right' >${transStats.getT4xx()}</b></td>
+         <td class='td' style='background:#72abd8;'> <b style='float: right' >${transStats.getT5xx()}</b></td>
+         <td class='td' style='background:#72abd8;'> <b style='float: right' >${transStats.getConFail()}</b></td>
+         <td class='td' style='background:#72abd8;'> <b style='float: right' >${transStats.getCvFail()}</b></td>
+         <td class='td' style='background:#72abd8;'> <b style='float: right' >${transStats.getTotalTimeOut()}</b></td>
+         <j:if test='${!transStats.warVersion.equals("NA")}'>
+           <td class='td' style='background:#72abd8;'> <b style='float: right' >${transStats.getWarVersion()}</b></td>
+         </j:if>
+         <j:if test='${!transStats.releaseVersion.equals("NA")}'>
+           <td class='td' style='background:#72abd8;'> <b style='float: right' >${transStats.getReleaseVersion()}</b></td>
+         </j:if>
+         </tr>
+         </j:forEach>
+         </table>
+         </j:if>
+          <br />
+         <table border='1' class='table1'  width="100%" bgcolor="#F0F0F0" cellspacing="0" cellpadding="5" id="reportID">
+          <thead id ='pfh'><tr>
+             <th align='left' class='th td_color' >Metric Under Test</th>
+             <th align='right' class='th td_color' tooltip='${testReport.currentDescription}' >Current (${testReport.testRun}) [${testReport.currentDateTime}] </th>
+             <j:if test='${!testReport.operator.equals("NA")}'>
+               <th align='right' class='th td_color' > </th>
+             </j:if>
+
+             <th align='right' class='th td_color' >SLA</th>
+  
+             <j:if test='${!testReport.baseLineTestRun.equals("-1")}'>
+               <th align='right' class='th td_color' tooltip='${testReport.baselineDescription}'>Baseline (${testReport.baseLineTestRun}) [${testReport.baselineDateTime}]</th>
+             </j:if>
+
+             <j:if test='${!testReport.previousTestRun.equals("-1")}'>
+               <th align='right' class='th td_color' tooltip='${testReport.previousDescription}'>Previous (${testReport.previousTestRun}) [${testReport.previousDateTime}]</th>
+             </j:if>
+
+
+             <j:if test='${!testReport.initialTestRun.equals("-1")}'>
+               <th align='right' class='th td_color' tooltip='${testReport.initialDescription}'>Initial (${testReport.initialTestRun}) [${testReport.initialDateTime}]</th>
+             </j:if>
+           
+            <j:forEach var="test_metric" items="${testReport.testMetrics}"/> 
+             <j:if test='${!test_metric.transactiontStatus.equals("-1")}'>
+              <th align='right' class='th td_color' >Transaction Success (%)</th>
+           </j:if>
+
+          <th align='right' class='th td_color' >Trend</th>
+
+          </tr></thead><tbody>
+          <j:forEach var="suit_metric" items="${testReport.testMetrics}">
+                  
+                 <j:if test='${suit_metric.newReport.equals("NewReport")}'>
+                 <j:if test='${!suit_metric.headerName.equals("")}'>
+                  <tr >
+                    <th colspan="10" style="background:#5c95d9;" align="left" title = '${suit_metric.headerName}' >${suit_metric.headerName}</th>
+                 </tr>
+                  </j:if>
+                 </j:if>
+                 <tr >
+                 <j:if test='${suit_metric.newReport.equals("NewReport")}'>
+                      <td  style="background:#C5D9F1;padding-left: 15px;" title='${suit_metric.metricRuleName}' >${suit_metric.displayName}</td>
+                 </j:if>
+                 <j:if test='${!suit_metric.newReport.equals("NewReport")}'>
+                      <td  style="background:#C5D9F1;padding-left: 15px;" title='${suit_metric.metricRuleName}' >${suit_metric.metricName}</td>
+                 </j:if>                  
+  
+                  <j:if test='${suit_metric.currValue.equals("NA")}'>
+                     <td align='right' style="background:#FFFFFF;float:right;" >${suit_metric.currValue}</td>
+                  </j:if>
+
+                  <j:if test='${!suit_metric.currValue.equals("NA") &amp;&amp; suit_metric.edLink.equals("NA")}'>                
+                     <td align='right' style='background:${suit_metric.currValue.substring( suit_metric.currValue.indexOf("-") + 1, suit_metric.currValue.indexOf(")"))};'>${suit_metric.currValue.substring(0 , suit_metric.currValue.indexOf("("))}</td>
+                  </j:if>
+
+                <j:if test='${!suit_metric.currValue.equals("NA") &amp;&amp; !suit_metric.edLink.equals("NA")}'>
+                     <td align='right' style='background:${suit_metric.currValue.substring( suit_metric.currValue.indexOf("-") + 1, suit_metric.currValue.indexOf(")"))};color:blue;cursor:pointer;' onclick="openEd('${suit_metric.edLink}')">${suit_metric.currValue.substring(0 , suit_metric.currValue.indexOf("("))}</td>
+                </j:if>
+
+
+
+                  <j:if test='${!testReport.operator.equals("NA")}'>
+                    <td  style="background:#FFFFFF;" >${suit_metric.operator}</td>
+                  </j:if>
+
+                  <td align='right'  style="background:#FFFFFF;" >${suit_metric.SLA}</td>
+                 
+                  <j:set var="baseLine" value="${suit_metric.baseLineValue}"/>
+
+                  
+                  <j:if test='${!testReport.baseLineTestRun.equals("-1")}'>
+
+                    <j:if test='${baseLine.equals("NA")}'>
+                       <td align='right'  style="background:#FFFFFF;" >${baseLine}</td>
+                    </j:if>
+
+                    <j:if test='${!baseLine.equals("NA")}'>
+                      <td   align='right' style='background:${baseLine.substring(baseLine.indexOf("-") + 1, baseLine.indexOf(")"))};' >${baseLine.substring(0 , baseLine.indexOf("("))}</td>
+                    </j:if>
+                  </j:if>
+
+                  <j:set var="previous" value="${suit_metric.prevTestRunValue}"/>
+             
+                
+                  <j:if test='${!testReport.previousTestRun.equals("-1")}'>
+                    <j:if test='${previous.equals("NA")}'>
+                      <td  style="background:#FFFFFF;" >${previous}</td>
+                    </j:if>
+
+                    <j:if test='${!previous.equals("NA")}'>
+                      <td style='background:${previous.substring(previous.indexOf("-") + 1, previous.indexOf(")"))};' >${previous.substring(0 , previous.indexOf("("))}</td>
+                    </j:if>
+                  </j:if>
+
+                  <j:set var="initialTest" value="${suit_metric.initialValue}"/>
+
+
+                  <j:if test='${!testReport.initialTestRun.equals("-1")}'>
+                   <j:if test='${initialTest.equals("NA")}'>
+                    <td align='right' style="background:#FFFFFF;" >${initialTest}</td>
+                   </j:if>
+                   <j:if test='${!initialTest.equals("NA")}'>
+                      <td align='right' style='background:#FFFFFF;'>${initialTest.substring(0 , initialTest.indexOf("("))}</td>
+                    </j:if>
+                  </j:if>
+                  
+                  <j:if test='${!suit_metric.transactiontStatus.equals("-1")}'>
+                   <j:if test='${!suit_metric.statusColour.equals("NA")}'>   
+                     <td align='right' style='background:${suit_metric.statusColour};' tooltip='${suit_metric.transactionTooltip}'>${suit_metric.transactiontStatus} </td>
+                  </j:if>
+     
+                  <j:if test='${suit_metric.statusColour.equals("NA")}'>
+                     <td align='right' style='background:#FFFFFF;' tooltip='${suit_metric.transactionTooltip}'>${suit_metric.transactiontStatus} </td>
+                  </j:if>
+              </j:if>
+            <td  style="background:#FFFFFF;color:blue;cursor:pointer;"  onclick="openTrend('${suit_metric.linkForTrend}')" > Trend </td>
+            </tr>
+        </j:forEach></tbody>
+     </table>
+       <script>setupTestRunsTableSort()
+       function openTrend(value)
+       {
+         console.log("url to be open =="+value);
+         window.open(value,'trendGraph');
+       }
+       function openEd(value)
+       {
+         console.log("url to be open =="+value);
+         window.open(value,'transEd');
+       }
+
+
+       </script>
+     <br/>
+     </j:if><br/>
+     <div style="border: 1px solid black;">
+        <table width = "100%" border="0" cellspacing="0" cellpadding="0">
+           <tr style="background:#F0F0F0;border-width: 1px;border-style: solid;border-color: #999999;" >
+            <td><img src ="${rootURL}/plugin/netstorm/images/arrow_r.png" title="Show or Hide Transaction Report" style="margin-right:8px" onClick='showOrHideReport()' id = "showOrHideReportImgId"/><label style="font-weight:bold; font-size:14px">Transaction Report</label></td></tr><tr><td><div id="reportTableId" style="display:none; width:99%; margin-left:8px;">
+
+      <j:forEach var="metricData" items="${report.metricsList}">
+        <h3>${metricData.metricPath} with interval: ${metricData.frequency} secs</h3>
+        <table width="100%">
+          <tr>
+            <td width="60%">
+             <div style='overflow:auto;height:440px;'>
+              <table class="sortable source" border="1">
+                <jm:captionLine/>
+                <j:forEach var="metricValue" items="${metricData.metricValues}">
+                  <tr class="${h.ifThenElse(report.failed,'red','')}">
+                    <jm:summaryTable it="${metricValue}"/>
+                  </tr>
+                </j:forEach>
+              </table>
+              </div>
+            </td>
+            <td width="40%">
+              <img class="trend" src="./summarizerGraph?width=600&amp;height=440&amp;metricDataKey=${metricData.metricPath}" width="500" height="440" />
+            </td>
+          </tr>
+        </table>
+      </j:forEach>
+     </div></td></tr></table></div>
+     <j:if test='${!report.customHTMLReport.equals("NA")}'>
+     <div>${report.customHTMLReport}</div>
+     </j:if>
+    </l:main-panel>
+  </l:layout>
+</j:jelly>
